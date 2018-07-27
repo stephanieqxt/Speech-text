@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * This class maps the dolphin sounds to human-readable English
@@ -9,26 +11,21 @@ import java.util.Hashtable;
  */
 public class Translator {
 	// Variable
-	private String mappingFile;					// Mapping file name
-	private Hashtable <String, String> mapping;	// Mapping of dolphin pattern to human-readable english provided by Scientists
-	private String [] dolphinPattern; 			// Interpreted dolphin patterns from scientists
-	private String [] translatedPattern;		// Translated dolphin pattersn to human-readable english
+	private Hashtable <String, String> mapping;	// Mapping of dolphin pattern to human-readable English provided by Scientists
+	private List<String> dolphinPattern; 		// Interpreted dolphin patterns from scientists
+	private List<String> translatedPattern;		// Translated dolphin pattern to human-readable English
 	
 	// Constructor
-	public Translator(String[] dolphinPattern, String mappingFile) {
+	public Translator(Hashtable<String, String> mapping, List<String> dolphinPattern) {
+		this.mapping = mapping;
 		this.dolphinPattern = dolphinPattern;
-		this.mappingFile = mappingFile;
+		translatedPattern = new ArrayList();
+		
+		// Start translation
+		this.translate();
 	}
 	
-	// Method
-	/**
-	 * This method returns the current value of mappingFile.
-	 * @return mappingFile The file name of mapping
-	 */
-	public String getMappingFileName() {
-		return mappingFile;
-	}
-	
+	// Method	
 	/**
 	 * This method returns the current value of getMapping.
 	 * @return mapping The mapping of dolphin patterns with human-readable English
@@ -41,7 +38,7 @@ public class Translator {
 	 * This method returns the current value of dolphinPattern.
 	 * @return dolphinPattern The dolphin pattern provided by Scientists
 	 */
-	public String[] getDolphinPattern() {
+	public List<String> getDolphinPattern() {
 		return dolphinPattern;
 	}
 	
@@ -49,23 +46,40 @@ public class Translator {
 	 * This method returns the current value of translatedPattern.
 	 * @return translatedPattern The human-readable English text after mapping
 	 */
-	public String[] getTranslatedPattern() {
+	public List<String> getTranslatedPattern() {
 		return translatedPattern;
-	}
-	
-	/**
-	 * This method reads the input text file of mappings between dolphin pattern and human-readable English.
-	 * Writes to Hashtable mapping
-	 */
-	private void readMapping() {
-		// Reads input file and write to Hashtable
 	}
 	
 	/**
 	 * This method does the logic of translation according to mapping
 	 */
 	private void translate() {
-		// Does translation
+		String result, temp;
+		
+		for (int i = 0; i < dolphinPattern.size(); i++) {
+			// Split name via ":" as name does not need to be translated
+			String[] nameSpeech = dolphinPattern.get(i).split(":");	//[0]: Name, [1]: Speech
+			result = nameSpeech[0] + ":";
+			
+			// Translate the speech
+			/*temp = translateLogic(nameSpeech[1]);
+			result.concat(temp);*/
+			
+			// Put into result
+			translatedPattern.add(result);
+		}
 	}
-
+	
+	/**
+	 * This method contains the logic to translate dolphin pattern to human-readable English
+	 * @param speech Line of dolphin pattern
+	 * @return translatedSpeech The line of translated result
+	 */
+	private String translateLogic(String speech) {
+		String translatedSpeech = null;
+		
+		// logic
+		
+		return translatedSpeech;
+	}
 }
