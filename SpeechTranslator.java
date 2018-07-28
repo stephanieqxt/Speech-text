@@ -128,16 +128,24 @@ public class SpeechTranslator {
 		
 		// Read input file dolphin pattern
 		dolphinPattern = readSpeech(inputFile);
+		if(dolphinPattern.size() == 0) 
+			System.out.println("Empty input file.");
 		
 		// Read input file mapping
 		mapping = readMapping(mappingFile);
+		if(mapping.size() == 0)
+			System.out.println("Empty mapping file.");
 		
-		// Instantiate object to trigger translation
-		Translator translator = new Translator(mapping, dolphinPattern);
-		
-		// Output to file
-		translatedPattern = translator.getTranslatedPattern();
-		writeFile(outputFile, translatedPattern);
-		System.out.println("\nWrite to file '" + outputFile + "' completed.");
+		// Only translate if both input file of dolphin pattern and mapping file is empty
+		if(dolphinPattern.size() != 0 && mapping.size() != 0) {
+			// Instantiate object to trigger translation
+			Translator translator = new Translator(mapping, dolphinPattern);
+			
+			// Output to file
+			translatedPattern = translator.getTranslatedPattern();
+			writeFile(outputFile, translatedPattern);
+			System.out.println("\nWrite to file '" + outputFile + "' completed.");
+		}
+			
 	}
 }
